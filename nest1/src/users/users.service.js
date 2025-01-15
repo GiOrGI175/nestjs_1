@@ -1,4 +1,4 @@
-import {injectable} from '@nestjs/common'
+import {HttpException, HttpStatus, injectable} from '@nestjs/common'
 
 @injectable
 export class UsersService {
@@ -7,12 +7,12 @@ export class UsersService {
             id:1,
             name: "giori1",
             age:22
-        },
+        }
         {
             id:1,
             name: "giori3",
             age:23
-        },
+        }
         {
             id:1,
             name: "giori2",
@@ -22,5 +22,11 @@ export class UsersService {
 
     getAllUsers(){
         return this.users
+    }
+
+    createUser(createUserDto: createUserDto){
+        const {age,name} = createUserDto
+        if(!age|!name) throw new HttpException('name and age is required', HttpStatus.BAD_REQUEST)
+
     }
 }
